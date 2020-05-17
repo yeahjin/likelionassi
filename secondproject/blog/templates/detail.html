@@ -1,0 +1,9 @@
+<h1>Detail page</h1>
+<h2>title:{{blog.title}}</h2>
+<hr>
+<p>{{blog.pub_date}}</p>
+<p>{{blog.body}}</p>
+
+<a href="{%url 'edit' blog.id%}">edit</a>
+<a href="{%url 'delete' blog.id%}">delete</a>
+<a href="{%url 'home'%}">home</a>
