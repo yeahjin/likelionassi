@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import blog.views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',blog.views.home, name = "home"),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('blog/edit/<int:blog_id>',blog.views.edit, name = "edit"),
     path('blog/update/<int:blog_id>',blog.views.update, name = "update"),
     path('blog/delete/<int:blog_id>',blog.views.delete, name= "delete"),
-]
+] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+#urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT) #위와 똑같은 방법이다.

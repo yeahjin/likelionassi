@@ -17,22 +17,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: gray
+    }
+</style>
 
 <body>
+    {% load static %}
     <div class="container">
-        <h1>Blog Project</h1>
+        <img src="{%static 'snoopy.png'%}" alt="">
+        <h1>YejinLog</h1>
         <a href="{%url 'new' %}">new</a>
         {% for blog in blogs.all%}
         <hr>
         <a href="{%url 'detail' blog.id %}">
-        <h2>{{blog.title}}</h2>
-        <p>{{blog.pub_date}}</p>
-        <p>{{blog.summary}}</p>
-        <br><br>
-        {%endfor%}
+            <h2>{{blog.title}}</h2>
+            <p>{{blog.pub_date}}</p>
+            <p>{{blog.summary}}</p>
+            <br>
+            {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="">
+            {% endif %}
+
+            <br><br>
+            {%endfor%}
     </div>
 
-    
+
 </body>
 
 </html>

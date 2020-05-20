@@ -1,6 +1,7 @@
 from django.shortcuts import render , get_object_or_404,redirect
 from .models import Blog
 from django.utils import timezone
+from .form import BlogForm
 def home(request):
     blogs = Blog.objects #쿼리셋 #메소드
     return render(request, 'home.html',{'blogs':blogs})
@@ -13,8 +14,18 @@ def detail(request,blog_id):
     return render(request, 'detail.html',{'blog':blog})
 
 def new(request):
-    return render(request,'new.html')
-
+    # 1. 데이터가 입력 된 후 제출 버튼을 누르고 데이터저장 =  post
+    # 2.정보가 입력되지 않은 빈칸으로 되어있는 페이지 보여주기 = get
+    if request.method == "POST":
+        form = BlogForm(request.POST,request.FILES)
+        if form.is_valid():
+            content = form.save(commit = False) # 임시저장 잠깐 보류
+            content.pub_date = timezone.now()
+            content.save()
+            return redirect('home')
+    else:
+        form = BlogForm()
+        return render(request,'new.html',{'form':form})
 def create(request):
     new_blog = Blog()
     new_blog.title = request.POST['title']
