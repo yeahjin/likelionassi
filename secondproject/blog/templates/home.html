@@ -34,7 +34,16 @@
     <div class="container">
         <img src="{%static 'snoopy.png'%}" alt="">
         <h1>YejinLog</h1>
+        {% if user.is_authenticated %}
+        <h5>안녕하세요 {{user.username}}님</h5>
+        <a href="{%url 'logout' %}">logout</a>
+        {% else %}
+        <a href="{%url 'register' %}">sign up</a>
+        {% endif %}
         <a href="{%url 'new' %}">new</a>
+        <div>
+            <a href="{%url 'login' %}">login</a>
+        </div>
         {% for blog in blogs.all%}
         <hr>
         <a href="{%url 'detail' blog.id %}">
