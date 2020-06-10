@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <header><h2>BOOKMARK</h2></header>
+        <br>
+        <div>
+            <a href="{% url 'main:new' %}" class = "btn btn-info">CREATE</a>
+        </div>
+    </div>
+    <hr>
+    <div>
+        {% if bookmarks %}
+        {% for bookmark in bookmarks %}
+        <div>
+            <p>{{ bookmark.site_name }}</p>
+            <p>{{ bookmark.site_url }}</p>
+            <div>
+                <a href="{% url 'main:edit' bookmark.id %}" class ="h5 btn btn-primary">edit</a>
+                <form action="{% url 'main:delete' bookmark.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="h5 btn btn-primary">delete</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% if posts.has_previous %}
+        <a href="?page={{post.previous_page_number}}">previous</a>
+        {% endif %}
+        <span>{{posts.number}}</span>
+        <span>/</span>
+        <span>{{posts.paginator.num_pages}}</span>
+        {% if posts.has_next %}
+        <a href="?page={{posts.next_page_number}}">next</a>
+        {% endif %}
+        {% else %}
+        <div>
+            <p>
+                북마크가 비어있습니다.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
