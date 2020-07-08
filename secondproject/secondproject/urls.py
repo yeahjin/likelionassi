@@ -13,6 +13,8 @@ urlpatterns = [
     path('blog/edit/<int:blog_id>',blog.views.edit, name = "edit"),
     path('blog/update/<int:blog_id>',blog.views.update, name = "update"),
     path('blog/delete/<int:blog_id>',blog.views.delete, name= "delete"),
-    path('account/',include(account.urls))
+    path('account/',include(account.urls)),
+    path('blog/commenting/<int:blog_id>', blog.views.commenting, name = 'commenting'),
+    path('blog/like/<int:blog_id>',blog.views.like, name = 'like'),
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 #urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT) #위와 똑같은 방법이다.

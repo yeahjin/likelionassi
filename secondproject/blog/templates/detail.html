@@ -38,9 +38,28 @@
         <p>{{blog.pub_date}}</p>
         <p>{{blog.body}}</p>
 
+        <p>{{likes}}좋아요</p>
+
         <a href="{%url 'edit' blog.id%}">edit</a>
         <a href="{%url 'delete' blog.id%}">delete</a>
         <a href="{%url 'home'%}">home</a>
+
+        <hr>
+        {% for comment in comments %}
+        <br> 작성자: {{comment.auther}}
+        <br> 내용: {{comment.body}}
+        <br> {{comment.pub_date}}
+        {% endfor %}
+        댓글달기
+        <form action="/blog/commenting/{{blog.id}}" method = "post">
+            {% csrf_token %}
+            <input type = "text" name = 'body'>
+            <button type = 'submit'>작성</button>
+        </form>
+
+        <form action="/blog/like/{{blog.id}}" method = "get">
+            <button type = "submit">좋아요</button>
+        </form>
     </div>
 </body>
 
